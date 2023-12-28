@@ -1,0 +1,62 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<!-- Page wrapper  -->
+	<div class="page-wrapper py-2">
+		<!-- Container fluid  -->
+		<div class="container-fluid">
+			<!-- Sales Cards  -->
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="alert alert-info">
+						Product List <a ng-click="moveForm()"
+							class="btn btn-success float-end">Add New Product</a>
+					</h3>
+					<table class="table text-center">
+						<thead>
+							<tr>
+								<th style="font-weight: bolder; font-size: 18px">Product ID</th>
+								<th style="font-weight: bolder; font-size: 18px">Product
+									Name</th>
+								<th style="font-weight: bolder; font-size: 18px">Image</th>
+								<th style="font-weight: bolder; font-size: 18px">Price</th>
+								<th style="font-weight: bolder; font-size: 18px">CreateDate</th>
+								<th style="font-weight: bolder; font-size: 18px">Available</th>
+								<th style="font-weight: bolder; font-size: 18px">Category
+									ID</th>
+								<th style="font-weight: bolder; font-size: 18px">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in pager.items">
+								<td>{{item.id}}</td>
+								<td>{{item.name}}</td>
+								<td><img src="/assets/images/{{item.image}}" alt=""
+									width=150px /></td>
+								<td>{{item.price | number: 2}}</td>
+								<td>{{item.createDate | date:'dd-MM-yyyy'}}</td>
+								<td>{{item.available?'Yes':'No'}}</td>
+								<td>{{item.category.name}}</td>
+								<td><a class='btn btn-warning' style="font-size: 14px"
+									ng-click="edit(item)"> <span
+										class="glyphicon glyphicon-edit"></span> Edit
+								</a> <a style="font-size: 14px" class="btn btn-danger btn-xs"
+									ng-click="delete(item)"> <span
+										class="glyphicon glyphicon-remove"></span> Delete
+								</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<hr />
+					<div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+						<a class="btn btn-outline-success" ng-click="pager.first()">First</a>
+						<a class="btn btn-outline-success" ng-click="pager.prev()">Previous</a>
+						<button class="btn">{{pager.page + 1 }} / {{pager.count}}</button>
+						<a class="btn btn-outline-success" ng-click="pager.next()">Next</a>
+						<a class="btn btn-outline-success" ng-click="pager.last()">Last</a>
+					</div>
+					<hr />
+				</div>
+			</div>
+		</div>
+		<!-- End Container fluid  -->
+	</div>
+</div>

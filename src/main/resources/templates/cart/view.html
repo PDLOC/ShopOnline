@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index :: dynamic(~{::main})}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body>
+	<main>
+		<div class="container col-12 mt-4" th:fragment="shopping_cart">
+			<!-- Cart Item-->
+			<div class="cart-item d-md-flex justify-content-between"
+				ng-repeat="item in cart.items">
+				<input type="hidden" name="id" value="${item.id}"> <a
+					ng-click="cart.remove(item.id)" class="remove-item"><i
+					class="fa fa-times"></i></a>
+				<div class="px-2 my-3">
+					<a class="cart-item-product" href="#">
+						<div class="cart-item-product-thumb">
+							<img th:src="@{|/assets/images/{{item.image}}|}" alt="Product"
+								style="width: 100px">
+						</div>
+						<div class="cart-item-product-info align-middle">
+							<h4 class="cart-item-product-title">{{item.name}}</h4>
+						</div>
+					</a>
+				</div>
+				<div class="px-3 my-3 text-center">
+					<div class="cart-item-label">Số lượng</div>
+					<div class="pt-4">
+						<a class='btn btn-outline-success fw-bolder mb-1'
+							style="width: 38px;" ng-click="cart.sub(item.id)"> - </a>
+						<div class="count-input">
+							<input class="form-control border-success text-center"
+								ng-model="item.qty" value="${item.qty}" min="0"
+								ng-change="cart.saveToLocalStorage()"
+								style="width: 85px; height: 30px; font-size: 18px; font-weight: bolder; border: none">
+						</div>
+						<a class='btn btn-outline-success fw-bolder mb-1'
+							style="width: 38px;" ng-click="cart.add(item.id)">+</a>
+					</div>
+				</div>
+				<div class="px-3 my-3 text-center">
+					<div class="cart-item-label">Tổng cộng</div>
+					<span class="text-xl fw-bolder text-danger">${{item.qty*item.price
+						| number:2}}</span>
+				</div>
+			</div>
+			<!-- Coupon + Subtotal-->
+			<div
+				class="d-sm-flex justify-content-between align-items-center text-center text-sm-left">
+				<div class="py-2">
+					<span
+						class="d-inline-block align-items-center text-sm text-muted font-weight-medium text-uppercase me-2">Subtotal:</span><span
+						class="d-inline-block align-items-center text-xl fw-bolder text-danger">
+						$ {{cart.amount | number : 2}} </span>
+				</div>
+			</div>
+			<!-- Buttons-->
+			<hr class="mt-2">
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+				<a class="btn btn-outline-success me-2" th:href="@{|/product/list|}">Tiếp tục mua hàng</a> <a class="btn btn-outline-success me-2"
+					ng-click="cart.clear()">Xóa tất cả</a> <a
+					th:href="@{/order/checkout}" class="btn btn-outline-success">Đặt
+					hàng</a>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

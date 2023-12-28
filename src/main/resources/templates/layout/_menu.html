@@ -1,0 +1,61 @@
+<div xmlns:th="http://www.thymeleaf.org"
+	class="container my-3 border-danger">
+	<nav
+		class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
+		<div class="container">
+			<a class="navbar-brand name-store fw-bolder"
+				th:href="@{/product/list}"><i class="bi bi-shop"
+				style="font-weight: bolder;"></i> <strong>CLOSTHES STORE</strong></a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+				aria-controls="navbarNavDropdown" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class=" collapse navbar-collapse" id="navbarNavDropdown">
+				<div class="ms-auto d-none d-lg-block">
+					<div class="input-group col-4">
+						<span
+							class="border-warning input-group-text bg-success text-white">
+							<i class="bi bi-search"></i>
+						</span> <input type="text" class="form-control border-success">
+						<button class="btn btn-success text-white">Search</button>
+					</div>
+				</div>
+				<ul class="navbar-nav ms-auto ">
+					<th:block th:if="${#request.remoteUser}">
+						<li class="nav-item"><a th:href="@{/order/list}"
+							class="nav-link mx-2 text-uppercase menu">Your Orders</a></li>
+						<li class="nav-item"
+							th:if="${#request.isUserInRole('DIRE') or #request.isUserInRole('STAF')}">
+							<a th:href="@{/admin/home/index}"
+							class="nav-link mx-2 text-uppercase menu">Administration</a>
+						</li>
+						<li class="nav-item"><a th:href="@{/security/logoff}"
+							class="nav-link mx-2 text-uppercase menu">Sign Out</a></li>
+					</th:block>
+
+				</ul>
+				<ul class="navbar-nav ms-2">
+					<li class="nav-item"><a class="btn position-relative menu"
+						th:href="@{/cart/view}"> <i class="bi bi-cart3"
+							style="font-size: 20px;"></i><span
+							class="position-absolute top-0 start-50 badge rounded-pill bg-danger">
+								{{cart.count}}</span>
+					</a></li>
+					<th:block>
+						<li class="nav-item" th:unless="${#request.remoteUser}"><a
+							th:href="@{/security/login/form}"
+							class="nav-link mx-2 text-uppercase menu"><i
+								class="bi bi-person-circle me-2"></i>Sign In</a></li>
+					</th:block>
+				</ul>
+				<div th:if="${#request.remoteUser}" class="text-end">
+					<a class="nav-link mx-2 text-uppercase text-success fw-bolder">Welcome
+						[[${#request.remoteUser}]]</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
